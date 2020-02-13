@@ -1,69 +1,70 @@
 // add styles
 import './style.css'
 // three.js
-import * as THREE from 'three'
+import * as T from 'three'
+
+import * as OrbitControls from 'three-orbitcontrols';
+
+import * as M from './model'
 
 // create the scene
-let scene = new THREE.Scene()
+let scene = new T.Scene()
 
 // create the camera
-let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+let camera = new T.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
 
-let renderer = new THREE.WebGLRenderer()
-
+let renderer = new T.WebGLRenderer()
 // set size
 renderer.setSize(window.innerWidth, window.innerHeight)
 
 // add canvas to dom
 document.body.appendChild(renderer.domElement)
 
-// add axis to the scene
-let axis = new THREE.AxesHelper(10)
+const orbitControls = new OrbitControls(camera, renderer.domElement);
 
+// add axis to the scene
+let axis = new T.AxesHelper(10000)
 scene.add(axis)
 
-// add lights
-let light = new THREE.DirectionalLight(0xffffff, 1.0)
+const sunLight = new T.PointLight(0xffffff, 1.0)
+scene.add(sunLight)
 
-light.position.set(100, 100, 100)
-
-scene.add(light)
-
-let light2 = new THREE.DirectionalLight(0xffffff, 1.0)
-
-light2.position.set(-100, 100, -100)
-
-scene.add(light2)
-
-let material = new THREE.MeshBasicMaterial({
-	color: 0xaaaaaa,
-	wireframe: true
-})
-
-// create a box and add it to the scene
-let box = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material)
-
+// debug box
+const box = M.createBox()
+box.position.x = 1000
+box.position.y = 500
 scene.add(box)
 
-box.position.x = 0.5
-box.rotation.y = 0.5
+const model = M.createModel(scene)
 
-camera.position.x = 5
-camera.position.y = 5
-camera.position.z = 5
+camera.position.x = 1000
+camera.position.y = 1000
+camera.position.z = 1000
 
-camera.lookAt(scene.position)
+//camera.lookAt(scene.position)
+const targetPlanet = model.earth.planet
+camera.lookAt(targetPlanet.position)
+orbitControls.target = targetPlanet.position
+
+function advanceState(): void {
+    let timer = 0.0005 * Date.now()
+
+    const moon = model.earth.satellites[0];
+    moon.position.set(
+        Math.cos(timer) * 20,
+        0,
+        Math.sin(timer) * 20
+      )
+}
 
 function animate(): void {
-	requestAnimationFrame(animate)
-	render()
+    requestAnimationFrame(animate)
+    advanceState()
+    render()
 }
 
 function render(): void {
-	let timer = 0.002 * Date.now()
-	box.position.y = 0.5 + 0.5 * Math.sin(timer)
-	box.rotation.x += 0.1
-	renderer.render(scene, camera)
+    renderer.render(scene, camera)
 }
 
 animate()
