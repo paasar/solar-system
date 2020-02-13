@@ -29,12 +29,13 @@
     "progress-bar-webpack-plugin": "latest",
     "style-loader": "latest",
     "typescript": "latest",
-    "webpack": "latest",
-    "webpack-cli": "^2.0.14",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.0.8",
     "webpack-dev-server": "latest"
   },
   "dependencies": {
     "@types/three": "latest",
-    "three": "latest"
+    "three": "latest",
+    "three-orbitcontrols": "^2.102.1"
   }
 }
