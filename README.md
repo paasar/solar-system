@@ -1,23 +1,30 @@
-# Typescript Three.js Webpack Starter
+# Solar system visualization with Three.js
 
-- Typescript support.
-- Webpack
-- Html plugin
-- BrowserSync
+This is a Three.js project to visualize Solar system.
+
+It is also a project for me to improve my TypeScript skills.
+
+Started with Typescript Three.js Webpack Starter https://github.com/pinqy520/three-typescript-starter.git
 
 ## Usage
 
 ### Install Typscript
 
 ```
-npm install typescript -g
+yarn global add typescript
 ```
 
 ### Start
 
 ```
-$ git clone https://github.com/pinqy520/three-typescript-starter.git
-$ cd three-typescript-starter
-$ npm install # or yarn
-$ npm start
+$ yarn
+$ yarn start
 ```
+
+## Textures
+
+Textures from https://www.solarsystemscope.com/textures/
+
+## Copyright
+
+CC BY-NC 4.0 @ Ari Paasonen
