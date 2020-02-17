@@ -8,7 +8,7 @@ import * as CONTROLS from './controls'
 import * as M from './model'
 
 let previousNow = Date.now()
-let speed = 3888.0 // 38880 = full moon orbit in one minute
+let speed = 10000 // 38880 = full moon orbit in one minute
 let pause = false
 
 let cameras: Array<T.Camera> = []
@@ -16,9 +16,21 @@ let cameras: Array<T.Camera> = []
 CONTROLS.listenInput({
     togglePause: () => { pause = !pause },
     cycleCamera: cycleCamera,
-    speedUp: () => speed = speed + 1000,
-    slowDown: () => speed = speed - 1000
+    speedUp: () => {
+        speed = speed + 1000
+        updateSpeedOMeter()
+    },
+    slowDown: () => {
+        speed = speed - 1000
+        updateSpeedOMeter()
+    }
 })
+
+function updateSpeedOMeter() {
+    const speedElement = document.getElementById('speed')
+    speedElement.textContent = '' + speed
+}
+updateSpeedOMeter()
 
 let scene = new T.Scene()
 
