@@ -70,12 +70,20 @@ export function createBoxes(scene: T.Scene): T.Mesh[] {
     return result
 }
 
+function createStars(): T.Mesh {
+    const starsG = new T.SphereGeometry(10000, 64, 64)
+    return new T.Mesh(starsG, A.starsMaterial)
+}
+
 function createCelestialBody(radius: number, segments: number, material: T.Material): T.Mesh {
     const sphereG = new T.SphereGeometry(radius, segments, segments)
     return new T.Mesh(sphereG, material)
 }
 
 export function createModel(scene: T.Scene): Model {
+
+    const stars = createStars()
+    scene.add(stars)
 
     const sun = createCelestialBody(1392.7/2, 64, A.sunMaterial)
     scene.add(sun)

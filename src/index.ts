@@ -18,7 +18,7 @@ C.listenInput({togglePause: () => { pause = !pause}})
 let scene = new T.Scene()
 
 // create the camera
-let camera = new T.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 5000)
+let camera = new T.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 20000)
 
 let renderer = new T.WebGLRenderer()
 // set size
@@ -68,7 +68,7 @@ function nextTick(speed: number) {
 }
 
 function advanceState(): void {
-    const speed = 10
+    const speed = 1
     const tick = nextTick(speed)
 
     const earth = model.earth.planet

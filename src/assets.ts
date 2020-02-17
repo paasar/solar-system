@@ -15,7 +15,7 @@ export const greyMaterial = new T.MeshPhongMaterial({
 const textureLoader = new T.TextureLoader()
 
 function texture(name: string): T.Texture {
-    return textureLoader.load(`assets/2k_${name}.jpg`)
+    return textureLoader.load(`assets/${name}.jpg`)
 }
 
 function planetMaterial(name: string): T.Material {
@@ -23,6 +23,11 @@ function planetMaterial(name: string): T.Material {
         map: texture(name)
     })
 }
+
+export const starsMaterial = new T.MeshBasicMaterial({
+    map: texture('stars'),
+    side: T.BackSide
+})
 
 export const sunMaterial = new T.MeshBasicMaterial({
     map: texture('sun')
