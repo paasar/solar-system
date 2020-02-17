@@ -52,24 +52,6 @@ export function createBox(): T.Mesh {
     return new T.Mesh(A.boxGeometry, A.createRandomMaterial())
 }
 
-export function createBoxes(scene: T.Scene): T.Mesh[] {
-    console.log('creating boxes')
-    const result: T.Mesh[] = []
-    for (var i = 0; i < 5; i++) {
-        console.log('box', i)
-        let box = createBox()
-
-        box.position.x = 0.5 + i
-        box.position.y = i
-        box.rotation.y = 0.5
-
-        result.push(box)
-        scene.add(box)
-    }
-
-    return result
-}
-
 function createStars(): T.Mesh {
     const starsG = new T.SphereGeometry(10000, 64, 64)
     return new T.Mesh(starsG, A.starsMaterial)
