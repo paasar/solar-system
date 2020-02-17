@@ -84,9 +84,6 @@ export function createModel(scene: T.Scene): Model {
 
     const moon = createCelestialBody(C.MOON_RADIUS, 32, A.moonMaterial)
     scene.add(moon)
-    moon.position.z = 384.4 / 20 // scale down while not using correct distances
-    moon.rotateY(-1.2)
-
     scene.add(earth)
 
     const mars = createCelestialBody(C.MARS_RADIUS, 32, A.marsMaterial)

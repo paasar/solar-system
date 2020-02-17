@@ -8,14 +8,23 @@ import * as CONTROLS from './controls'
 import * as M from './model'
 
 let previousNow = Date.now()
+let speed = 3888.0 // 38880 = full moon orbit in one minute
 let pause = false
 
-CONTROLS.listenInput({togglePause: () => { pause = !pause }})
+let cameras: Array<T.Camera> = []
+
+CONTROLS.listenInput({
+    togglePause: () => { pause = !pause },
+    cycleCamera: cycleCamera,
+    speedUp: () => speed = speed + 1000,
+    slowDown: () => speed = speed - 1000
+})
 
 let scene = new T.Scene()
 
 // the camera to look around the Solar system from afar
 let bigPictureCamera = new T.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 20000)
+cameras.push(bigPictureCamera)
 
 let renderer = new T.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
@@ -33,10 +42,21 @@ const sunLight = new T.PointLight(0xffffff, 1.0)
 scene.add(sunLight)
 
 // dim white light
-const ambientLight = new T.AmbientLight( 0x101010 )
+const ambientLight = new T.AmbientLight(0x101010)
 scene.add(ambientLight)
 
 const model = M.createModel(scene)
+let earthCamera = new T.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 20000)
+cameras.push(earthCamera)
+model.earth.planet.add(earthCamera)
+earthCamera.position.x = C.EARTH_RADIUS
+
+let lookAtMoonCamera = new T.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 20000)
+cameras.push(lookAtMoonCamera)
+model.earth.planet.add(lookAtMoonCamera)
+lookAtMoonCamera.position.y = C.EARTH_RADIUS + 1
+// const cameraHelper = new T.CameraHelper(lookAtMoonCamera);
+// scene.add(cameraHelper)
 
 bigPictureCamera.position.x = 1395
 bigPictureCamera.position.y = 50
@@ -55,8 +75,6 @@ function tick(): number {
 }
 
 let moonPosition = {cos: 0, sin: 0}
-
-const speed = 38880 // 38880 = full moon orbit in one minute
 
 function advanceState(): void {
     const timePassed = tick()
@@ -84,16 +102,22 @@ function moveMoon(moon: T.Mesh, earth: T.Mesh, passedQuotientOfHour: number): vo
     moonPosition = {cos: moonPosition.cos - moonOrbitRadians,
                     sin: moonPosition.sin - moonOrbitRadians}
     moon.position.set(
-        moon.position.x + Math.cos(moonPosition.cos) * 20,
+        moon.position.x + Math.cos(moonPosition.cos) * 25,
         moon.position.y,
-        moon.position.z + Math.sin(moonPosition.sin) * 20
+        moon.position.z + Math.sin(moonPosition.sin) * 25
     )
     moon.lookAt(earth.position)
     moon.rotateY(-1.2)
+
+    lookAtMoonCamera.lookAt(moon.position)
 }
 
 function rotation(radiansInHour: number, passedQuotientOfHour: number): number {
     return radiansInHour * passedQuotientOfHour * speed
+}
+
+function cycleCamera(): void {
+    cameras.push(cameras.shift())
 }
 
 function animate(): void {
@@ -103,7 +127,7 @@ function animate(): void {
 }
 
 function render(): void {
-    renderer.render(scene, bigPictureCamera)
+    renderer.render(scene, cameras[0])
 }
 
 animate()
