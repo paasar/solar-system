@@ -1,4 +1,16 @@
 
+export const SUN_RADIUS = 1392.7/2
+export const MERCURY_RADIUS = 4.879/2
+export const VENUS_RADIUS = 12.104/2
+export const EARTH_RADIUS = 12.742/2
+export const MOON_RADIUS = 3.474/2
+export const MARS_RADIUS = 6.779/2
+export const JUPITER_RADIUS = 139.820/2
+export const SATURN_RADIUS = 116.460/2
+export const URANUS_RADIUS = 50.724/2
+export const NEPTUNE_RADIUS = 49.244/2
+
+
 // 360° = 6.28319 rad
 export const FULL_CIRCLE_IN_RADIANS = 6.28319
 export const SUN_TURNS_IN_HOUR = FULL_CIRCLE_IN_RADIANS / (27 * 24)

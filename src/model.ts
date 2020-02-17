@@ -1,5 +1,6 @@
 import * as T from 'three'
 import * as A from './assets'
+import * as C from './constants'
 
 class Planet {
     planet: T.Mesh;
@@ -67,44 +68,44 @@ export function createModel(scene: T.Scene): Model {
     const stars = createStars()
     scene.add(stars)
 
-    const sun = createCelestialBody(1392.7/2, 64, A.sunMaterial)
+    const sun = createCelestialBody(C.SUN_RADIUS, 64, A.sunMaterial)
     scene.add(sun)
 
-    const mercury = createCelestialBody(4.879/2, 32, A.mercuryMaterial)
+    const mercury = createCelestialBody(C.MERCURY_RADIUS, 32, A.mercuryMaterial)
     mercury.position.x = 800
     scene.add(mercury)
 
-    const venus = createCelestialBody(12.104/2, 32, A.venusMaterial)
+    const venus = createCelestialBody(C.VENUS_RADIUS, 32, A.venusMaterial)
     venus.position.x = 1100
     scene.add(venus)
 
-    const earth = createCelestialBody(12.742/2, 32, A.earthMaterial)
+    const earth = createCelestialBody(C.EARTH_RADIUS, 32, A.earthMaterial)
     earth.position.x = 1400
 
-    const moon = createCelestialBody(3.474/2, 32, A.moonMaterial)
+    const moon = createCelestialBody(C.MOON_RADIUS, 32, A.moonMaterial)
     scene.add(moon)
     moon.position.z = 384.4 / 20 // scale down while not using correct distances
     moon.rotateY(-1.2)
 
     scene.add(earth)
 
-    const mars = createCelestialBody(6.779/2, 32, A.marsMaterial)
+    const mars = createCelestialBody(C.MARS_RADIUS, 32, A.marsMaterial)
     mars.position.x = 1700
     scene.add(mars)
 
-    const jupiter = createCelestialBody(139.820/2, 32, A.jupiterMaterial)
+    const jupiter = createCelestialBody(C.JUPITER_RADIUS, 32, A.jupiterMaterial)
     jupiter.position.x = 2000
     scene.add(jupiter)
 
-    const saturn = createCelestialBody(116.460/2, 32, A.saturnMaterial)
+    const saturn = createCelestialBody(C.SATURN_RADIUS, 32, A.saturnMaterial)
     saturn.position.x = 2300
     scene.add(saturn)
 
-    const uranus = createCelestialBody(50.724/2, 32, A.uranusMaterial)
+    const uranus = createCelestialBody(C.URANUS_RADIUS, 32, A.uranusMaterial)
     uranus.position.x = 2600
     scene.add(uranus)
 
-    const neptune = createCelestialBody(49.244/2, 32, A.neptuneMaterial)
+    const neptune = createCelestialBody(C.NEPTUNE_RADIUS, 32, A.neptuneMaterial)
     neptune.position.x = 2900
     scene.add(neptune)
 
