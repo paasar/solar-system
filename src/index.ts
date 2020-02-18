@@ -70,11 +70,11 @@ lookAtMoonCamera.position.y = C.EARTH_RADIUS + 1
 // const cameraHelper = new T.CameraHelper(lookAtMoonCamera);
 // scene.add(cameraHelper)
 
-bigPictureCamera.position.x = 1395
+const targetPlanet = model.earth.planet
+bigPictureCamera.position.x = targetPlanet.position.x - 50
 bigPictureCamera.position.y = 50
 bigPictureCamera.position.z = 100
 
-const targetPlanet = model.earth.planet
 bigPictureCamera.lookAt(targetPlanet.position)
 orbitControls.target = targetPlanet.position
 

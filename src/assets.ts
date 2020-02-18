@@ -14,23 +14,23 @@ export const greyMaterial = new T.MeshPhongMaterial({
 
 const textureLoader = new T.TextureLoader()
 
-function texture(name: string): T.Texture {
-    return textureLoader.load(`assets/${name}.jpg`)
+function texture(fileName: string): T.Texture {
+    return textureLoader.load(`assets/${fileName}`)
 }
 
 function planetMaterial(name: string): T.Material {
     return new T.MeshPhongMaterial({
-        map: texture(name)
+        map: texture(`${name}.jpg`)
     })
 }
 
 export const starsMaterial = new T.MeshBasicMaterial({
-    map: texture('stars'),
+    map: texture('stars.jpg'),
     side: T.BackSide
 })
 
 export const sunMaterial = new T.MeshBasicMaterial({
-    map: texture('sun')
+    map: texture('sun.jpg')
 })
 
 export const mercuryMaterial = planetMaterial('mercury')//0xB3D4F0
@@ -40,6 +40,13 @@ export const moonMaterial = planetMaterial('moon')//0xFFFFFF
 export const marsMaterial = planetMaterial('mars')//0xFF0000
 export const jupiterMaterial = planetMaterial('jupiter')//0xFFDA67
 export const saturnMaterial = planetMaterial('saturn')//0xE3CF62
+
+export const saturnRingMaterial = new T.MeshBasicMaterial({
+    map: texture('saturn_ring_alpha.png'),
+    side: T.DoubleSide,
+    transparent: true
+})
+
 export const uranusMaterial = planetMaterial('uranus')//0x33FFFC
 export const neptuneMaterial = planetMaterial('neptune')//0x3361FF
 

@@ -63,6 +63,23 @@ function createCelestialBody(radius: number, segments: number, material: T.Mater
     return new T.Mesh(sphereG, material)
 }
 
+function createSaturnRing(): T.Mesh {
+    const saturnRingG = new T.RingBufferGeometry( C.SATURN_RADIUS + 10, C.SATURN_RADIUS + 60, 64 )
+    let pos = <T.BufferAttribute>saturnRingG.attributes.position
+
+    // correct texture coordinates
+    var v3 = new T.Vector3()
+    for (let i = 0; i < pos.count; i++){
+        v3.fromBufferAttribute(pos, i)
+        saturnRingG.attributes.uv.setXY(i, v3.length() < 80 ? 0 : 1, 1)
+    }
+
+    const saturnRing = new T.Mesh(saturnRingG, A.saturnRingMaterial)
+    saturnRingG.rotateX(90 * (Math.PI / 180))
+
+    return saturnRing
+}
+
 export function createModel(scene: T.Scene): Model {
 
     const stars = createStars()
@@ -96,6 +113,7 @@ export function createModel(scene: T.Scene): Model {
 
     const saturn = createCelestialBody(C.SATURN_RADIUS, 32, A.saturnMaterial)
     saturn.position.x = 2300
+    saturn.add(createSaturnRing())
     scene.add(saturn)
 
     const uranus = createCelestialBody(C.URANUS_RADIUS, 32, A.uranusMaterial)
