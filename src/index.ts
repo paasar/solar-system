@@ -23,7 +23,8 @@ CONTROLS.listenInput({
     slowDown: () => {
         speed = speed - 1000
         updateSpeedOMeter()
-    }
+    },
+    cycleCameraTarget: cycleCameraTarget
 })
 
 function updateSpeedOMeter() {
@@ -70,13 +71,15 @@ lookAtMoonCamera.position.y = C.EARTH_RADIUS + 1
 // const cameraHelper = new T.CameraHelper(lookAtMoonCamera);
 // scene.add(cameraHelper)
 
-const targetPlanet = model.earth.planet
-bigPictureCamera.position.x = targetPlanet.position.x - 50
-bigPictureCamera.position.y = 50
-bigPictureCamera.position.z = 100
+function setTargetPlanet(planet: T.Mesh): void {
+    bigPictureCamera.position.x = planet.position.x - 50
+    bigPictureCamera.position.y = 50
+    bigPictureCamera.position.z = 100
 
-bigPictureCamera.lookAt(targetPlanet.position)
-orbitControls.target = targetPlanet.position
+    bigPictureCamera.lookAt(planet.position)
+    orbitControls.target = planet.position
+}
+setTargetPlanet(model.earth.planet)
 
 function tick(): number {
     const now = Date.now()
@@ -130,6 +133,11 @@ function rotation(radiansInHour: number, passedQuotientOfHour: number): number {
 
 function cycleCamera(): void {
     cameras.push(cameras.shift())
+}
+
+function cycleCameraTarget(): void {
+    model.planets.push(model.planets.shift())
+    setTargetPlanet(model.planets[0].planet)
 }
 
 function animate(): void {

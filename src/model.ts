@@ -25,6 +25,7 @@ class Model {
     saturn: Planet;
     uranus: Planet;
     neptune: Planet;
+    planets: Array<Planet>;
 
     constructor(
         sun: T.Mesh,
@@ -46,6 +47,7 @@ class Model {
         this.saturn = saturn;
         this.uranus = uranus;
         this.neptune = neptune;
+        this.planets = [earth, mars, jupiter, saturn, uranus, neptune, mercury, venus]
     }
 }
 

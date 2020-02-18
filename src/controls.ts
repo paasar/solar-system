@@ -1,12 +1,13 @@
 export function listenInput(commands): void {
     document.addEventListener('keyup', (e) => {
-        if (e.code === 'KeyP') commands.togglePause()
-        else
-        if (e.code === 'KeyC') commands.cycleCamera()
-        else
-        if (e.code === 'Minus') commands.speedUp()
-        else
-        if (e.code === 'Slash') commands.slowDown()
-        else console.log('Unknown key', e.code)
+        switch(e.code) {
+            case 'KeyP': commands.togglePause(); break
+            case 'KeyP': commands.togglePause(); break
+            case 'KeyC': commands.cycleCamera(); break
+            case 'KeyT': commands.cycleCameraTarget(); break
+            case 'Minus': commands.speedUp(); break
+            case 'Slash': commands.slowDown(); break
+            default: console.log('Unknown key', e.code)
+        }
     })
 }
